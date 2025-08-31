@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Visual Calculator</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles can go here if needed */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent; /* Prevents flash on mobile tap */
+        }
+        /* Style for the calculator buttons on active/press state */
+        .calculator-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 flex items-center justify-center min-h-screen transition-colors duration-300">
+
+    <!-- Calculator Body -->
+    <div class="w-full max-w-sm mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 space-y-6">
+        
+        <!-- Display Screen -->
+        <div class="bg-gray-200 dark:bg-gray-700 rounded-lg p-4 text-right">
+            <div id="display" class="text-4xl font-bold text-gray-800 dark:text-white break-words">0</div>
+        </div>
+
+        <!-- Buttons Grid -->
+        <div class="grid grid-cols-4 gap-4">
+            <!-- Row 1 -->
+            <button data-value="AC" class="calculator-btn clear-btn bg-red-500 hover:bg-red-600 text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">AC</button>
+            <button data-value="+/-" class="calculator-btn operator-btn bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-800 dark:text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">+/-</button>
+            <button data-value="%" class="calculator-btn operator-btn bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-800 dark:text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">%</button>
+            <button data-value="/" class="calculator-btn operator-btn bg-orange-500 hover:bg-orange-600 text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">÷</button>
+
+            <!-- Row 2 -->
+            <button data-value="7" class="calculator-btn num-btn bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">7</button>
+            <button data-value="8" class="calculator-btn num-btn bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">8</button>
+            <button data-value="9" class="calculator-btn num-btn bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">9</button>
+            <button data-value="*" class="calculator-btn operator-btn bg-orange-500 hover:bg-orange-600 text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">×</button>
+
+            <!-- Row 3 -->
+            <button data-value="4" class="calculator-btn num-btn bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">4</button>
+            <button data-value="5" class="calculator-btn num-btn bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">5</button>
+            <button data-value="6" class="calculator-btn num-btn bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">6</button>
+            <button data-value="-" class="calculator-btn operator-btn bg-orange-500 hover:bg-orange-600 text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">-</button>
+
+            <!-- Row 4 -->
+            <button data-value="1" class="calculator-btn num-btn bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">1</button>
+            <button data-value="2" class="calculator-btn num-btn bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">2</button>
+            <button data-value="3" class="calculator-btn num-btn bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">3</button>
+            <button data-value="+" class="calculator-btn operator-btn bg-orange-500 hover:bg-orange-600 text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">+</button>
+
+            <!-- Row 5 -->
+            <button data-value="0" class="calculator-btn num-btn col-span-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">0</button>
+            <button data-value="." class="calculator-btn num-btn bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">.</button>
+            <button data-value="=" class="calculator-btn equals-btn bg-green-500 hover:bg-green-600 text-white text-2xl font-semibold rounded-lg h-16 transition-all duration-200 shadow-md">=</button>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Element Selection ---
+        const display = document.getElementById('display');
+        const buttons = document.querySelectorAll('.calculator-btn');
+
+        // --- State Variables ---
+        let currentExpression = '';
+        let resultDisplayed = false;
+
+        // --- Event Listener for all calculator buttons ---
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const value = button.dataset.value;
+                handleInput(value);
+            });
+        });
+        
+        /**
+         * Handles the logic for each button press.
+         * @param {string} value - The value associated with the clicked button.
+         */
+        function handleInput(value) {
+            const operators = ['+', '-', '*', '/'];
+            const lastChar = currentExpression.slice(-1);
+
+            if (value === 'AC') {
+                // All Clear: Reset everything
+                currentExpression = '';
+                display.innerText = '0';
+                resultDisplayed = false;
+            } else if (value === '=') {
+                // Equals: Calculate the result only if the expression is valid
+                if (currentExpression && !operators.includes(lastChar)) {
+                    calculateExpression(currentExpression);
+                }
+            } else if (value === '+/-') {
+                // Sign Toggle: Not implemented in this version for simplicity.
+                console.log("Sign toggle not implemented in this version.");
+            } else if (value === '%') {
+                 // Percentage: Convert the current expression to a percentage
+                 // Only works if the expression is valid
+                 if(currentExpression && !operators.includes(lastChar)) {
+                     calculateExpression(`(${currentExpression})/100`);
+                 }
+            } else {
+                // Handle numbers and operators
+                if (resultDisplayed) {
+                    if (operators.includes(value)) {
+                         currentExpression = display.innerText;
+                    } else {
+                         currentExpression = '';
+                    }
+                    resultDisplayed = false;
+                }
+                
+                // Prevent leading zeros unless it's for a decimal
+                if (currentExpression === '0' && value !== '.') {
+                    currentExpression = value;
+                } else {
+                    currentExpression += value;
+                }
+                display.innerText = currentExpression;
+            }
+        }
+
+        /**
+         * Calculates the result of the expression directly in JavaScript.
+         * @param {string} expression - The mathematical expression to evaluate.
+         */
+        function calculateExpression(expression) {
+            try {
+                // Using eval() is generally discouraged due to security risks,
+                // but it's acceptable for this controlled calculator environment
+                // where the input comes from our own buttons.
+                const result = eval(expression);
+
+                // Check for invalid results like Infinity or NaN
+                if (!isFinite(result)) {
+                    display.innerText = 'Error';
+                    console.error('Calculation Error:', 'Result is not a finite number.');
+                } else {
+                    // Format the result to a reasonable number of decimal places
+                    const formattedResult = parseFloat(result.toPrecision(12));
+                    display.innerText = formattedResult;
+                    currentExpression = formattedResult.toString();
+                }
+            } catch (error) {
+                display.innerText = 'Error';
+                console.error('Calculation Error:', error);
+            } finally {
+                resultDisplayed = true;
+            }
+        }
+    </script>
+
+</body>
+</html>
